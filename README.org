@@ -1,0 +1,13 @@
+#+title: Default Emacs
+#+author: Connor Clark
+#+email: connor@psyleft.com
+
+Slightly opinionated default Emacs configuration
+
+* About
+This repository provides reasonable defaults of which to build a
+personal Emacs configuration off.  It aims mainly to expose some of
+the sticking points and non-obvious configurations that new users
+might want to change.  While most of the configuration here will be
+valuable to almost all users, they are slightly aligned with the
+author's preferences.
