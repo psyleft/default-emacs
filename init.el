@@ -12,36 +12,49 @@
 ;;; Code:
 
 ;; Define configuration variables
-(defvar conf/fixed-pitch-font
-  (font-spec :family "Monospace"  :weight 'regular :size 12.0))
-(defvar conf/variable-pitch-font
-  (font-spec :family "Sans Serif" :weight 'regular :size 12.0))
+(defvar conf/serif-font
+  (font-spec :family "Noto Serif"     :weight 'regular :size 11.0))
+(defvar conf/sans-serif-font
+  (font-spec :family "Noto Sans"      :weight 'regular :size 11.0))
+(defvar conf/monospace-font
+  (font-spec :family "Noto Sans Mono" :weight 'regular :size 11.0))
 
-(defvar conf/backups-dir
+(defvar conf/user-backups-dir
   (expand-file-name "backups/"  user-emacs-directory))
-(defvar conf/packages-dir
+(defvar conf/user-packages-dir
   (expand-file-name "packages/" user-emacs-directory))
 
-;; Load use-package
+;; Load customizations
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file :noerror)
+
+;; (setopt user-full-name "")
+;; (setopt user-mail-address "")
+
+;; Preform configuration setup
+(make-directory conf/user-backups-dir)
+(make-directory conf/user-packages-dir)
+
 (require 'package)
 (require 'use-package)
 
-(add-to-list 'load-path conf/packages-dir)
-(add-to-list 'package-archives
-             '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'load-path conf/user-packages-dir)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; Configure core emacs
 (use-package emacs
   :bind
+  ("<f5>"    . recompile)
   ("C-h"     . backward-delete-char)
   ("C-x C-k" . kill-current-buffer)
   ("C-x 9"   . bury-buffer)
-  ("C-c r"   . eval-region)
+  ("C-c C-r" . eval-region)
+  ("C-c d"   . duplicate-dwim)
 
   :custom-face
-  (default        ((t (:font ,conf/fixed-pitch-font))))
-  (fixed-pitch    ((t (:font ,conf/fixed-pitch-font))))
-  (variable-pitch ((t (:font ,conf/variable-pitch-font))))
+  (default        ((t (:font ,conf/monospace-font))))
+  (fixed-pitch    ((t (:font ,conf/monospace-font))))
+  (variable-pitch ((t (:font ,conf/sans-serif-font))))
 
   :custom
   ;; Behavior
@@ -61,14 +74,11 @@
   (bidi-paragraph-direction 'left-to-right)
   (bidi-inhibit-bpa t)
 
-  ;; Custom
-  (custom-file (expand-file-name "custom.el" user-emacs-directory))
-
   ;; Files
   (large-file-warning-threshold (* 256 1024 1024))
   (make-backup-files nil)
-  (backup-directory-alist `(("." . ,conf/backups-dir)))
-  (auto-save-file-name-transforms `((".*" ,conf/backups-dir t)))
+  (backup-directory-alist `(("." . ,conf/user-backups-dir)))
+  (auto-save-file-name-transforms `((".*" ,conf/user-backups-dir t)))
 
   ;; Minibuffer
   (read-file-name-completion-ignore-case t)
@@ -80,6 +90,11 @@
   (switch-to-buffer-obey-display-actions t)
 
   :config
+  ;; Default frame parameters
+  (add-to-list 'default-frame-alist '(alpha-background . 100))
+  (add-to-list 'default-frame-alist '(width . 90))
+  (add-to-list 'default-frame-alist '(height . 40))
+
   ;; Disabled modes
   (indent-tabs-mode -1)
 
@@ -88,8 +103,10 @@
   (delete-selection-mode 1)
   (electric-pair-mode 1)
   (global-so-long-mode 1)
+  (repeat-mode 1)
   (show-paren-mode 1)
-  (visual-line-mode 1))
+  (visual-line-mode 1)
+  (winner-mode 1))
 
 ;; Configure packages
 (use-package autorevert
@@ -120,9 +137,8 @@
   ("C-c k" . kmacro-keymap))
 
 (use-package modus-themes
-  :ensure t
   :init
-  (load-theme 'modus-operandi t))
+  (load-theme 'modus-vivendi t))
 
 (use-package whitespace
   :hook
@@ -131,8 +147,5 @@
   (conf-mode . whitespace-mode)
   :custom
   (whitespace-style '(face tabs trailing)))
-
-;; Load customizations
-(load custom-file :noerror)
 
 ;;; init.el ends here
