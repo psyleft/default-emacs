@@ -88,6 +88,10 @@
   (completion-category-overrides
    '((file (styles basic partial-completion))))
 
+  ;; Simple
+  (indent-tabs-mode nil)
+  (visual-line-mode t)
+
   ;; Windowing
   (switch-to-buffer-in-dedicated-window 'pop)
   (switch-to-buffer-obey-display-actions t)
@@ -98,9 +102,6 @@
   (add-to-list 'default-frame-alist '(width . 90))
   (add-to-list 'default-frame-alist '(height . 40))
 
-  ;; Disabled modes
-  (indent-tabs-mode -1)
-
   ;; Enabled modes
   (column-number-mode 1)
   (delete-selection-mode 1)
@@ -108,7 +109,6 @@
   (global-so-long-mode 1)
   (repeat-mode 1)
   (show-paren-mode 1)
-  (visual-line-mode 1)
   (winner-mode 1))
 
 ;; Configure packages
