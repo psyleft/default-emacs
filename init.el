@@ -32,8 +32,11 @@
 ;; (setopt user-mail-address "")
 
 ;; Perform configuration setup
-(make-directory conf/user-backups-dir)
-(make-directory conf/user-packages-dir)
+(mapc (lambda (dir)
+        (when (not (file-directory-p dir))
+          (make-directory dir)))
+      (list conf/user-backups-dir
+            conf/user-packages-dir))
 
 (require 'package)
 (require 'use-package)
