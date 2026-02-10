@@ -31,7 +31,7 @@
 ;; (setopt user-full-name "")
 ;; (setopt user-mail-address "")
 
-;; Preform configuration setup
+;; Perform configuration setup
 (make-directory conf/user-backups-dir)
 (make-directory conf/user-packages-dir)
 
