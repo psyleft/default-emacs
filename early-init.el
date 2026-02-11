@@ -44,13 +44,17 @@
 (push '(height . 40)            default-frame-alist)
 (push '(alpha-background . 100) default-frame-alist)
 
-;; Perform configuration setup
+(push (cons 'font (font-xlfd-name conf/monospace-font))
+      default-frame-alist)
+
+;; Make configuration directories if necessary
 (mapc (lambda (dir)
         (when (not (file-directory-p dir))
           (make-directory dir)))
       (list conf/user-backups-dir
             conf/user-packages-dir))
 
+;; Set up package infrastructure
 (require 'package)
 (require 'use-package)
 
@@ -66,5 +70,10 @@
         ("nongnu" . 80)
         ("stable" . 70)
         ("melpa"  . 10)))
+
+;; Load theme before frame is spawned
+(use-package modus-themes
+  :init
+  (load-theme 'modus-vivendi t))
 
 ;;; early-init.el ends here

@@ -108,10 +108,6 @@
   :bind-keymap
   ("C-c k" . kmacro-keymap))
 
-(use-package modus-themes
-  :init
-  (load-theme 'modus-vivendi t))
-
 (use-package whitespace
   :hook
   (prog-mode . whitespace-mode)
