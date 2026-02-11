@@ -11,38 +11,12 @@
 
 ;;; Code:
 
-;; Define configuration variables
-(defvar conf/serif-font
-  (font-spec :family "Noto Serif"     :weight 'regular :size 11.0))
-(defvar conf/sans-serif-font
-  (font-spec :family "Noto Sans"      :weight 'regular :size 11.0))
-(defvar conf/monospace-font
-  (font-spec :family "Noto Sans Mono" :weight 'regular :size 11.0))
-
-(defvar conf/user-backups-dir
-  (expand-file-name "backups/"  user-emacs-directory))
-(defvar conf/user-packages-dir
-  (expand-file-name "packages/" user-emacs-directory))
-
 ;; Load customizations
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file :noerror)
 
 ;; (setopt user-full-name "")
 ;; (setopt user-mail-address "")
-
-;; Perform configuration setup
-(mapc (lambda (dir)
-        (when (not (file-directory-p dir))
-          (make-directory dir)))
-      (list conf/user-backups-dir
-            conf/user-packages-dir))
-
-(require 'package)
-(require 'use-package)
-
-(add-to-list 'load-path conf/user-packages-dir)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; Configure core emacs
 (use-package emacs
@@ -97,11 +71,6 @@
   (switch-to-buffer-obey-display-actions t)
 
   :config
-  ;; Default frame parameters
-  (add-to-list 'default-frame-alist '(alpha-background . 100))
-  (add-to-list 'default-frame-alist '(width . 90))
-  (add-to-list 'default-frame-alist '(height . 40))
-
   ;; Enabled modes
   (column-number-mode 1)
   (delete-selection-mode 1)
