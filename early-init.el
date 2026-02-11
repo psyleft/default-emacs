@@ -71,9 +71,4 @@
         ("stable" . 70)
         ("melpa"  . 10)))
 
-;; Load theme before frame is spawned
-(use-package modus-themes
-  :init
-  (load-theme 'modus-vivendi t))
-
 ;;; early-init.el ends here
