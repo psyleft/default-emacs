@@ -55,6 +55,16 @@
 (require 'use-package)
 
 (add-to-list 'load-path conf/user-packages-dir)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+
+(add-to-list 'package-archives
+             '("stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa"  . "https://melpa.org/packages/"))
+
+(setq package-archive-priorities
+      '(("gnu"    . 99)
+        ("nongnu" . 80)
+        ("stable" . 70)
+        ("melpa"  . 10)))
 
 ;;; early-init.el ends here
